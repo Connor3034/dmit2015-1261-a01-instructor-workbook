@@ -1,8 +1,10 @@
 package dmit2015.view;
 
+import dmit2015.model.StudentInfo;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
@@ -11,47 +13,33 @@ import java.io.Serializable;
 @ViewScoped
 public class StudentFormBean implements Serializable {
 
-    private int submissionCount;
-    private String fullName;
-    private String program;
-    private boolean fullTime;
+    @Inject
+    private StudentListSession studentListSession;
+
+    private int submissionCount;    // getter
+
+    private StudentInfo studentInfo = new StudentInfo();    // getter
 
     public void submit() {
+        studentListSession.addStudentInfo(studentInfo);
+
         submissionCount++;
         FacesMessage message = new FacesMessage(
                 FacesMessage.SEVERITY_INFO,
                 "Form Submitted",
-                "Welcome " + fullName + " from " + program
+                "Welcome " + studentInfo.getFullName()
+                        + " from " + studentInfo.getProgram()
         );
         FacesContext.getCurrentInstance()
                 .addMessage(null, message);
-
+        // Clear form fields by assign a new model
+        studentInfo = new StudentInfo();
     }
     public int getSubmissionCount() {
         return submissionCount;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getProgram() {
-        return program;
-    }
-
-    public void setProgram(String program) {
-        this.program = program;
-    }
-
-    public boolean isFullTime() {
-        return fullTime;
-    }
-
-    public void setFullTime(boolean fullTime) {
-        this.fullTime = fullTime;
+    public StudentInfo getStudentInfo() {
+        return studentInfo;
     }
 }

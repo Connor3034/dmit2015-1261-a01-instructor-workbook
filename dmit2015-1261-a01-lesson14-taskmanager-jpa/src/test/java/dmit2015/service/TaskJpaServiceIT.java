@@ -1,19 +1,15 @@
 package dmit2015.service;
 
-import dmit2015.config.ApplicationConfig;
 import dmit2015.model.Task;
 import dmit2015.model.TaskPriority;
-import jakarta.annotation.Resource;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.transaction.NotSupportedException;
-import jakarta.transaction.SystemException;
-import jakarta.transaction.UserTransaction;
 import net.datafaker.Faker;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit5.container.annotation.ArquillianTest;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -22,7 +18,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.jupiter.api.*;
-import org.jboss.arquillian.junit5.container.annotation.ArquillianTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -32,8 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @Transactional(TransactionMode.ROLLBACK)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -212,30 +205,5 @@ public class TaskJpaServiceIT { // The class must be declared as public
 
     }
 
-//    @Order(7)
-//    @ParameterizedTest
-//    // TODO Change the value below
-//    @CsvSource(value = {
-//            "Invalid Property1Value, Property2Value, Property3Value, ExpectedExceptionMessage",
-//            "Property1Value, Invalid Property2Value, Property3Value, ExpectedExceptionMessage",
-//    }, nullValues = {"null"})
-//    void givenEntityWithValidationErrors_whenAddTask_thenThrowException(
-//            String property1,
-//            String property2,
-//            String property3,
-//            String expectedExceptionMessage
-//    ) {
-//        // Arrange
-//        Task newTask = new Task();
-//        // TODO uncomment below and set each property of Task using parameter values
-//        // newTask.setProperty1(property1);
-//        // newTask.setProperty2(property2);
-//        // newTask.setProperty3(property3);
-//
-//        // Act + Assert using AssertJ to verify the exception message contains the expected text
-//        assertThatThrownBy(() -> taskService.createTask(newTask))
-//                .hasStackTraceContaining(expectedExceptionMessage);
-//
-//    }
 
 }

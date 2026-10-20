@@ -68,6 +68,7 @@ public class TaskJpaServiceIT { // The class must be declared as public
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
+
     @Inject
     @Named("jakartaPersistenceTaskService")
     private TaskService taskService;
